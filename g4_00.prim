@@ -1,0 +1,41 @@
+##G4.PRIM-FORMAT-2.4
+/BoundingBox       -413.519972       -413.519972       -413.519972        413.519972        413.519972        413.519972
+!SetCamera
+!OpenDevice
+!BeginModeling
+#--------------------
+#/PVName          Aerosol_block.0
+/Ndiv  24
+/ColorRGB               0.8                 0               0.8
+/ForceWireframe  0
+/Origin                 0                 0                 0
+/BaseVector                 1                 0                 0                 0                 1                 0
+/Tubs                 0                80               300                 0        6.28318531
+#--------------------
+#/PVName          Titanium_block.0
+/Ndiv  24
+/ColorRGB                 1                 1                 1
+/ForceWireframe  0
+/Origin                 0                 0                 0
+/BaseVector                 1                 0                 0                 0                 1                 0
+/Tubs                80              80.2               300                 0        6.28318531
+#--------------------
+#/PVName          Titanium_Fblock.0
+/Ndiv  24
+/ColorRGB                 1                 1                 1
+/ForceWireframe  0
+/Origin                 0                 0            -300.1
+/BaseVector                 1                 0                 0                 0                 1                 0
+/Tubs                 0              80.2               0.1                 0        6.28318531
+#--------------------
+#/PVName          Titanium_Rblock.0
+/Ndiv  24
+/ColorRGB                 1                 1                 1
+/ForceWireframe  0
+/Origin                 0                 0             300.1
+/BaseVector                 1                 0                 0                 0                 1                 0
+/Tubs                 0              80.2               0.1                 0        6.28318531
+#--------------------
+!EndModeling
+!DrawAll
+!CloseDevice

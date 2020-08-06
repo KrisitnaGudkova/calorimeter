@@ -1,0 +1,12 @@
+#ifndef common_hh
+#define common_hh
+
+#define RUN_ENERGY 1.
+#define NUM_RUNS 1
+#define VIS 0
+#define CALORRADIUS 40 //mm
+#define WALLWIDTH 0.2 //mm
+#define CALORLENGTH 600 //mm
+#define PRIMARYY 50 //mm
+#define PRIMARYZ 600 //mm
+#endif

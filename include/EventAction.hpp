@@ -1,0 +1,58 @@
+#ifndef EventAction_h
+#define EventAction_h 1
+
+#include "G4UserEventAction.hh"
+
+#include "CalorHit.hpp"
+
+#include "globals.hh"
+
+#include "TData.hpp"
+
+class EventActionMessenger;
+
+/// Event action class
+///
+/// In EndOfEventAction(), it prints the accumulated quantities of the energy 
+/// deposit and track lengths of charged particles in Absober and Gap layers 
+/// stored in the hits collections.
+///
+/// The data member fPrintModulo defines the frequency of printing.
+/// Its value can be changed via a command defined in EventActionMassenger 
+/// class. 
+
+class EventAction : public G4UserEventAction
+{
+public:
+  EventAction();
+  void SetData (TData *data);
+  virtual ~EventAction();
+
+  virtual void  BeginOfEventAction(const G4Event* event);
+  virtual void  EndOfEventAction(const G4Event* event);
+                     
+  // set methods
+  void SetPrintModulo(G4int value);
+    
+private:
+  // methods
+  CalorHitsCollection* GetHitsCollection(const G4String& hcName, const G4Event* event) const;
+  void PrintEventStatistics(G4double calorEdep) const;
+  
+  // data members               
+  G4int  fPrintModulo;
+  TData *data;
+};
+
+// inline functions
+
+inline void EventAction::SetPrintModulo(G4int value)
+ {
+  fPrintModulo = value;
+}
+                     
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+#endif
+
+    

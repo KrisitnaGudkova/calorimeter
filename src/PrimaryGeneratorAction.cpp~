@@ -1,0 +1,66 @@
+#include "PrimaryGeneratorAction.hpp"
+#include "G4Event.hh"
+#include "G4ParticleGun.hh"
+#include "G4Electron.hh"
+//#include "Analysis.hh"
+#include "common.hpp"
+
+//It is strongly recomended to run SetY() and SetZ() before first shoot!
+
+void PrimaryGeneratorAction::PrimaryConstructor (G4double energy)
+{
+
+  particleGun = new G4ParticleGun(1);
+
+  G4Gamma* particleDefinition  = G4Gamma::GammaDefinition ();  
+
+  particleGun->SetParticleDefinition(particleDefinition);
+    
+  fEnergy = energy;
+}
+
+void PrimaryGeneratorAction::SetData(TData * Data)
+{
+  data = Data;
+}
+
+PrimaryGeneratorAction::PrimaryGeneratorAction()
+{
+  PrimaryConstructor(RUN_ENERGY);
+}
+
+PrimaryGeneratorAction::~PrimaryGeneratorAction()
+{
+  delete particleGun;
+}
+
+void PrimaryGeneratorAction::SetCoord(G4double X, G4double Y, G4double Z)
+{
+  x = X;
+  y = Y;
+  z = Z;
+}
+
+void PrimaryGeneratorAction::SetEnergy (G4double E)
+{
+  fEnergy = E;
+}
+
+void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
+{
+  //  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+  //G4double e = CLHEP::RandExp::shoot (&rand,fEnergy);
+  data->SetX(x);
+  data->SetZ(z);
+  data->SetY(y);
+  data->SetE_begin(fEnergy);
+  particleGun->SetParticleEnergy(fEnergy);
+  //  G4cout << "y = " << y << G4endl;
+  /*  analysisManager->FillNtupleDColumn (NOYLAYERS*NOZLAYERS*(G4int)(calorDepth/SIZEXAA+0.001)+1-1,e);
+  analysisManager->FillNtupleDColumn (NOYLAYERS*NOZLAYERS*(G4int)(calorDepth/SIZEXAA+0.001)+3-1,y);
+  analysisManager->FillNtupleDColumn (NOYLAYERS*NOZLAYERS*(G4int)(calorDepth/SIZEXAA+0.001)+4-1,z); */
+  particleGun->SetParticlePosition(G4ThreeVector(x, y, z));
+  G4ThreeVector v(1.0,0.0,0.0);
+  particleGun->SetParticleMomentumDirection(v);
+  particleGun->GeneratePrimaryVertex(anEvent);
+}
